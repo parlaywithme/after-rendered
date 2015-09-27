@@ -1,24 +1,31 @@
 Package.describe({
   name: 'parlay:after-rendered',
   version: '0.0.1',
-  // Brief, one-line summary of the package.
-  summary: '',
-  // URL to the Git repository containing the source code for this package.
-  git: '',
-  // By default, Meteor will default to using README.md for documentation.
-  // To avoid submitting documentation, set this field to null.
+  summary: 'Run code once after any instance of the template is rendered, or immediately if already rendered.',
+  git: 'https://github.com/parlaywithme/after-rendered',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.0.1');
-  api.use('ecmascript');
-  api.addFiles('after-rendered.js');
+  api.use([
+    'coffeescript',
+    'tracker',
+    'reactive-var',
+    'templating',
+    'blaze'
+  ], 'client');
+
+  api.addFiles('after-rendered.coffee', 'client');
 });
 
 Package.onTest(function(api) {
-  api.use('ecmascript');
-  api.use('tinytest');
-  api.use('parlay:after-rendered');
-  api.addFiles('after-rendered-tests.js');
+  api.use([
+    'coffeescript',
+    'templating',
+    'tinytest',
+    'parlay:after-rendered'
+  ], 'client');
+
+  api.addFiles(['tests.html', 'tests.coffee'], 'client');
 });
