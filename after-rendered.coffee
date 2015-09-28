@@ -13,6 +13,7 @@ Meteor.startup ->
     template.afterRendered = (fn) ->
       Tracker.autorun (c) ->
         if template.hasRendered.get()
+          # http://stackoverflow.com/questions/32808351/how-can-you-get-all-rendered-instances-of-a-template
           # fn.call instance
           fn()
           c.stop()
